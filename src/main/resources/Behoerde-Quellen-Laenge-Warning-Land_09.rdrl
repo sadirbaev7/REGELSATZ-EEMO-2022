@@ -11,7 +11,7 @@ rule "Behoerde-Quellen-Laenge-Warning-Land_09"
     when
         $rumeUploadDto : RumeUploadDto( bericht != null, bericht.betriebsstaette != null )
         $betriebsstaette : BetriebsstaetteRumeDto() from $rumeUploadDto.bericht.betriebsstaette
-        exists QuelleRumeDto( laenge != null, (laenge >= 150.0 || laenge < 160 )) from $betriebsstaette.quellen
+        exists QuelleRumeDto( laenge != null, (laenge >= 150.0 && laenge < 160 )) from $betriebsstaette.quellen
         $teilergebnis : KpTeilergebnisDto()
     then
         $teilergebnis.addRegelergebnisWarnung( "Laenge liegt nahe an den Maximalwerten", "Behoerde-Quellen-Laenge-Warning-Land_09", "Laenge muss unter Kontrolle sein" );

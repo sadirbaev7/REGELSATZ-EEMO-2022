@@ -11,7 +11,7 @@ rule "Behoerde-Quellen-Flaeche-Warning-Land_15"
     when
         $rumeUploadDto : RumeUploadDto( bericht != null, bericht.betriebsstaette != null )
         $betriebsstaette : BetriebsstaetteRumeDto() from $rumeUploadDto.bericht.betriebsstaette
-        exists QuelleRumeDto( flaeche != null, (flaeche >= 200.0 || flaeche < 250 )) from $betriebsstaette.quellen
+        exists QuelleRumeDto( flaeche != null, (flaeche >= 200.0 && flaeche < 250 )) from $betriebsstaette.quellen
         $teilergebnis : KpTeilergebnisDto()
     then
         $teilergebnis.addRegelergebnisWarnung( "Flaeche liegt nahe an den Maximalwerten", "Behoerde-Quellen-Flaeche-Warning-Land_15", "Flaeche muss unter Kontrolle sein" );
